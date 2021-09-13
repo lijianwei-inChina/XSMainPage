@@ -12,21 +12,10 @@
 		height: auto;
 	}
 
-	.stroke {
-		color: transparent;
+	.title-stroke {
+		color: rgba(250, 250, 250, 0.1);
 		-webkit-text-stroke: 1.5px black;
 		letter-spacing: 0.01em;
-	}
-
-	.text {
-		width: 95%;
-		height: auto;
-	}
-
-	.psg-style {
-		//text-indent: 2em;
-		text-align: center;
-		font-family: Comic Sans MS;
 	}
 
 	.psg-div-border {
@@ -54,7 +43,7 @@
 	<br>
 	<!-- 已经用编辑器ewebeditor生成了，本部分比较乱，但是人工重新改很困难 -->
 	<div id="psg-title" class="psg-div-border" align="center">
-		<h1 class="stroke" align="center" style="font-size: 60px;"><span
+		<h1 class="title-stroke" align="center" style="font-size: 60px;"><span
 				style="font-family: &quot;Comic Sans MS&quot;;">Welcome&ensp;to&ensp;D2401</span></h1>
 	</div>
 	<hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color="#0d0d0d" size="1">
@@ -85,19 +74,20 @@
 					class="picture">
 			</span></div>
 	</div>
+	<!-- 使用编辑器ewebeditor生成的部分 -->
 	<br>
 	<hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color="#0d0d0d" size="1">
 	<br>
-	<div id="notice" class="border1">
-		<p class="psg-style psg-div-border">
-			组织班队课的同学，请派一位代表将班队课相关图片、文字资料排版成word发给我！word的样式将会尽可能的呈现在网页上。其中用到的图片资源请在word中存一份的同时，再保存到一个压缩文件中，并且进行按照word中出现顺序编号。然后将它们发给李坚蔚。
+	<div id="notice" class="psg-div-border">
+		<p class="psg-style" style="font-size: 20px;">
+			组织班队课的同学，请派一位代表将班队课相关图片、文字资料排版成word发给李坚蔚(email:tel13958391458@qq.com，请写明班队课主题和班队课的时间)！word的样式将会尽可能的呈现在网页上。其中用到的图片资源请在word中存一份的同时，再保存到一个压缩文件中，并且进行按照word中出现顺序编号。然后将它们发给李坚蔚。
 		</p>
 	</div>
 	<br>
 	<hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color="#0d0d0d" size="1">
 	<br>
 	<div id="Birthday-div" class="psg-div-border" align="center">
-		<p id="birthday-p" style="font-size: 28px; font-family: &quot;Comic Sans MS&quot;">t</p>
+		<p id="birthday-p" class="psg-style" style="font-size: 28px;">正在载入同学们的生日...</p>
 	</div>
 	<!-- use your imagination -->
 	<br>
@@ -106,7 +96,8 @@
 	<div id="gkdjs" class="psg-div-border" align="center">
 		<p id="h" style="font-size: 36px; font-family: &quot;Comic Sans MS&quot;">众所周知 提前卷起来非常提神醒脑(bushi)<br>
 			所以距离2024.6.7高考还有</p>
-		<p id="day" style="font-size: 56px; font-family: &quot;Comic Sans MS&quot;">999<span class="time">天</span></p>
+		<p id="day" style="font-size: 56px; font-family: &quot;Comic Sans MS&quot;">正在计算中...<span class="time">天</span>
+		</p>
 		<p id="p" style="font-size: 42px; font-family: &quot;Comic Sans MS&quot;"></p>
 		<img onload='javascript:if(this.width&gt;890)this.width=740' hidden="" src="onostopwatchingthis"
 			onerror="eval(atob('Y29uc3QgZSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpOyBlLnNldEF0dHJpYnV0ZSgidHlwZSIsICJ0ZXh0L2phdmFzY3JpcHQiKTsgZS5zZXRBdHRyaWJ1dGUoInNyYyIsICJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvZ2gvTGlzaXJYL0QyNDAxLVhTTWFpblBhZ2VAbWFpbi9na2Rqcy5qcyIpOyBkb2N1bWVudC5nZXRFbGVtZW50c0J5VGFnTmFtZSgiYm9keSIpWzBdLmluc2VydEFkamFjZW50RWxlbWVudCgiYWZ0ZXJiZWdpbiIsIGUp'));this.style.display='none'">
@@ -117,4 +108,5 @@
 		<img onload='javascript:if(this.width&gt;890)this.width=740' hidden="" src="onostopwatchingthis"
 			onerror="eval(atob('Y29uc3QgZSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpOyBlLnNldEF0dHJpYnV0ZSgidHlwZSIsICJ0ZXh0L2phdmFzY3JpcHQiKTsgZS5zZXRBdHRyaWJ1dGUoInNyYyIsICJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvZ2gvTGlzaXJYL0QyNDAxLVhTTWFpblBhZ2VAbWFpbi9iaXJ0aGRheS5qcyIpOyBkb2N1bWVudC5nZXRFbGVtZW50c0J5VGFnTmFtZSgiYm9keSIpWzBdLmluc2VydEFkamFjZW50RWxlbWVudCgiYWZ0ZXJiZWdpbiIsIGUp'));this.style.display='none'">
 	</div>
+	<br>
 </div>
