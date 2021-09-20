@@ -10,4 +10,6 @@
 
 - [ ] 搜索一遍`marquee `标签
 
-### 4. 检查是否已经放了主页图片！
+### 4. 检查是否已经放了主页图片！(这里网站应该有bug，请在下方选择首页图片而非直接在编辑窗口选择)
+
+### P.S. Class Images 是 班级面貌；Military Training 是 军训瞬间；Class Activities 是 班队风采
