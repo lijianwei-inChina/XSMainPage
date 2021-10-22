@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,user-scalable=no,minimal-ui">
+<link rel="stylesheet" href="style.css">
+<title>五子棋游戏</title>
+<meta name="keywords" content="五子棋" />
+<meta name="description" content="五子棋游戏" /> 
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
+<div id="box">
+	<div id="centent">
+		<canvas id="canvas" width="480" height="480"></canvas>
+	</div>
+	<button id="button">撤回</button>
+	<button id="anew">重开</button>
+	<div id="state">
+		<div class="state-chess Bchess"></div>
+		<div class="chessName">黑棋走</div>
+	</div>
+	<div id="winner">
+		<div class="state-chess Bchess"></div>
+		<div class="chessName"></div>
+	</div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    game.drawLine()
+    game.canvas.addEventListener("mousedown",game.canvasClick)
+    game.regret_chess.addEventListener("mousedown",game.regret)
+    game.anew.addEventListener("mousedown",game.anewClick)
+ 
+</script>
+
+</body>
+</html>

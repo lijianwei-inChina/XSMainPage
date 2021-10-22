@@ -1,4 +1,5 @@
 <style type="text/css">
+	/*文档样式*/
 	.picture {
 		/*图片圆角*/
 		-moz-border-radius: 5%;
@@ -84,6 +85,142 @@
 	.top-wheather-text-div {
 		background-color: rgba(255, 206, 244, 0.2);
 	}
+
+	/*五子棋*/
+	#box {
+		position: relative;
+		margin: 50px auto;
+		width: 480px;
+		height: 540px;
+		background: #e6e7ec;
+	}
+
+	#centent {
+		position: absolute;
+		width: 460px;
+		height: 460px;
+		border: 1px solid #9E9E9E;
+		overflow: hidden;
+		border-radius: 8px;
+		box-shadow: 0px 0px 5px 0px #9e9e9ed9;
+		left: 10px;
+		top: 20px;
+	}
+
+	#canvas {
+		display: block;
+		position: absolute;
+		background: #F7E6B7;
+		left: -10px;
+		top: -10px;
+	}
+
+	#button,
+	#anew,
+	#state,
+	#winner {
+		position: absolute;
+		display: block;
+		width: 40px;
+		height: 40px;
+		border-radius: 30px;
+		outline: none;
+		font-size: 10px;
+		box-sizing: border-box;
+		color: #00BCD4;
+		background: #fff;
+		border: none;
+		box-shadow: 1px 1px 3px 1px #9e9e9e5e;
+		top: 490px;
+		left: 270px;
+		user-select: none;
+	}
+
+	#anew {
+		left: 220px;
+	}
+
+	#state {
+		left: 321px;
+		width: 120px;
+	}
+
+	#state .state-chess,
+	#winner .state-chess {
+		position: absolute;
+		width: 30px;
+		height: 30px;
+		top: 5px;
+		left: 5px;
+	}
+
+	#state .chessName,
+	#winner .chessName {
+		position: absolute;
+		width: 60px;
+		height: 30px;
+		top: 5px;
+		left: 40px;
+		text-align: center;
+		line-height: 30px;
+		font-size: 15px;
+	}
+
+
+
+	#button:hover {
+		transition: 1s all;
+		background: #01BCFF;
+		color: #fff;
+	}
+
+	#anew:hover {
+		transition: 1s all;
+		background: #1bb556;
+		color: #fff;
+	}
+
+	#button:active,
+	#anew:active {
+		transition-property: all;
+		transition-duration: 1s;
+		transition-timing-function: ease;
+		transition-delay: 0s;
+		transform: scale(.8);
+	}
+
+
+	.Bchess {
+		position: absolute;
+		width: 27px;
+		height: 27px;
+		border-radius: 30px;
+		background: radial-gradient(#9E9E9E -100%, #000000 100%);
+		box-shadow: 1px 1px 2px 0px #0000006e;
+		font-size: 10px;
+		line-height: 27px;
+		text-align: center;
+		color: #fff;
+	}
+
+	.Wchess {
+		position: absolute;
+		width: 27px;
+		height: 27px;
+		border-radius: 30px;
+		background: radial-gradient(#e4e4e4 10%, #b7aaaa);
+		box-shadow: 1px 1px 2px 0px #0000006e;
+		font-size: 10px;
+		line-height: 27px;
+		text-align: center;
+		color: #000000;
+	}
+
+	#winner {
+		width: 120px;
+		left: 12px;
+		display: none;
+	}
 </style>
 <div id="main-block" style="background-color: rgba(215, 222, 213, 0.15);" align="center">
 	<!-- Part-0: 班级标题 -->
@@ -144,6 +281,9 @@
 		<p class="psg-style normal-text"><span class="normal-text">
 				3. 其他班级需要我们班级主页的某些元素或者样式的，欢迎自行查看源代码，复制粘贴到自己的主页。
 			</span></p>
+		<p class="psg-style normal-text"><span class="normal-text">
+				4. 如涉及侵权等问题，请指出！将会立刻删除违规内容。
+			</span></p>
 	</div>
 	<!-- END Part-2: 开发者的话 END -->
 	<span class="normal-text-br"><br>
@@ -181,10 +321,35 @@
 	<span class="normal-text-br"><br>
 	</span>
 	<!-- Part-5: 载入圈小猫 -->
-	<div id="catch-the-cat" class="psg-div-border"></div>
+	<!-- div id="catch-the-cat" class="psg-div-border"></div -->
 	<!-- END Part-5: 载入圈小猫 END -->
+	<!-- <span class="normal-text-br"><br>
+	</span>
+	<hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color="#0d0d0d" size="1">
+	<span class="normal-text-br"><br>
+	</span> -->
+	<!-- Part-6: 载入五子棋 -->
+	<div id="gomocu" class="psg-div-border">
+		<div id="box">
+			<div id="centent">
+				<canvas id="canvas" width="480" height="480"></canvas>
+			</div>
+			<button id="button">撤回</button>
+			<button id="anew">重开</button>
+			<div id="state">
+				<div class="state-chess Bchess"></div>
+				<div class="chessName">黑棋走</div>
+			</div>
+			<div id="winner">
+				<div class="state-chess Bchess"></div>
+				<div class="chessName"></div>
+			</div>
+		</div>
+	</div>
+	<!-- END Part-6: 载入五子棋 -->
 	<!-- Last-Part: 载入各种JavaScript -->
 	<div id="loadJS">
+		<script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
 		<!-- 关于jQuery: 效实网站上本身就引用过jQuery(1.11.0), 所以不需要再次引用 -->
 		<!-- 同学的生日 -->
 		<img onload="" hidden="" src="onostopwatchingthis"
@@ -196,11 +361,14 @@
 		<img onload="" hidden="" src="onostopwatchingthis"
 			onerror="eval(atob('Y29uc3QgZSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpOyBlLnNldEF0dHJpYnV0ZSgidHlwZSIsICJ0ZXh0L2phdmFzY3JpcHQiKTsgZS5zZXRBdHRyaWJ1dGUoInNyYyIsICJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvZ2gvTGlzaXJYL0QyNDAxLVhTTWFpblBhZ2VAbWFpbi9yYW5kb21MaW5lcy5qcyIpOyBkb2N1bWVudC5nZXRFbGVtZW50c0J5VGFnTmFtZSgiYm9keSIpWzBdLmluc2VydEFkamFjZW50RWxlbWVudCgiYWZ0ZXJiZWdpbiIsIGUp'));this.style.display='none'">
 		<!-- 圈小猫 -->
-		<img onload="" hidden="" src="onostopwatchingthis"
-			onerror="eval(atob('Y29uc3QgZSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpOyBlLnNldEF0dHJpYnV0ZSgidHlwZSIsICJ0ZXh0L2phdmFzY3JpcHQiKTsgZS5zZXRBdHRyaWJ1dGUoInNyYyIsICJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvZ2gvTGlzaXJYL0QyNDAxLVhTTWFpblBhZ2VAbWFpbi9xeG0wMy5qcyIpOyBkb2N1bWVudC5nZXRFbGVtZW50c0J5VGFnTmFtZSgiYm9keSIpWzBdLmluc2VydEFkamFjZW50RWxlbWVudCgiYWZ0ZXJiZWdpbiIsIGUp'));this.style.display='none'">
+		<!-- img onload="" hidden="" src="onostopwatchingthis"
+			onerror="eval(atob('Y29uc3QgZSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpOyBlLnNldEF0dHJpYnV0ZSgidHlwZSIsICJ0ZXh0L2phdmFzY3JpcHQiKTsgZS5zZXRBdHRyaWJ1dGUoInNyYyIsICJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvZ2gvTGlzaXJYL0QyNDAxLVhTTWFpblBhZ2VAbWFpbi9xeG0wMy5qcyIpOyBkb2N1bWVudC5nZXRFbGVtZW50c0J5VGFnTmFtZSgiYm9keSIpWzBdLmluc2VydEFkamFjZW50RWxlbWVudCgiYWZ0ZXJiZWdpbiIsIGUp'));this.style.display='none'"-->
 		<!-- 手机自适应 -->
 		<img onload="" hidden="" src="onostopwatchingthis"
 			onerror="eval(atob('Y29uc3QgZSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpOyBlLnNldEF0dHJpYnV0ZSgidHlwZSIsICJ0ZXh0L2phdmFzY3JpcHQiKTsgZS5zZXRBdHRyaWJ1dGUoInNyYyIsICJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvZ2gvTGlzaXJYL0QyNDAxLVhTTWFpblBhZ2VAbWFpbi9zdWl0cy5qcyIpOyBkb2N1bWVudC5nZXRFbGVtZW50c0J5VGFnTmFtZSgiYm9keSIpWzBdLmluc2VydEFkamFjZW50RWxlbWVudCgiYWZ0ZXJiZWdpbiIsIGUp'));this.style.display='none'">
+		<!-- 五子棋 -->
+		<img onload="" hidden="" src="onostopwatchingthis"
+			onerror="eval(atob('Y29uc3QgZSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpOyBlLnNldEF0dHJpYnV0ZSgidHlwZSIsICJ0ZXh0L2phdmFzY3JpcHQiKTsgZS5zZXRBdHRyaWJ1dGUoInNyYyIsICJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvZ2gvTGlzaXJYL0QyNDAxLVhTTWFpblBhZ2VAbWFpbi9Hb21va3UwMy5qcyIpOyBkb2N1bWVudC5nZXRFbGVtZW50c0J5VGFnTmFtZSgiYm9keSIpWzBdLmluc2VydEFkamFjZW50RWxlbWVudCgiYWZ0ZXJiZWdpbiIsIGUp'));this.style.display='none'">
 	</div>
 	<!-- END Last-Part: 载入各种JavaScript END -->
 	<span class="normal-text-br"><br>
