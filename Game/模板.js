@@ -1,20 +1,3 @@
-function D2401_BWC_is_OK() {
-	if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-		return false;
-	} else {
-		if ($("#content_article").length > 0) {
-			// 班级主页的页面视图
-			let ip_info = $("#content_article").contents();
-			if (ip_info.eq(ip_info.length - 1).text().indexOf("IP:7.198") > -1) {
-				return true;
-			}
-			return false;
-		} else {
-			// 电脑端网页视图
-			return false;
-		}
-	}
-};
 ;
 (function($) {
 	'use strict'
@@ -239,22 +222,39 @@ function D2401_BWC_is_OK() {
 	}
 })(this)
 
-if (D2401_BWC_is_OK()) {
-	var now = new Date(),
-		y = now.getFullYear(),
-		m = now.getMonth() + 1,
-		d = now.getDate();
-	var s = y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " D2401Permission";
-	localStorage.setItem('XSMainpage_p2ball', md5(s))
-} else {
-	var now = new Date(),
-		y = now.getFullYear(),
-		m = now.getMonth() + 1,
-		d = now.getDate();
-	var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678', s;
-	for (i = 0; i < 5; i++) {
-		s += $chars.charAt(Math.floor(Math.random() * $chars.length));
-	}
-	var s = y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " NoPermission" + s;
-	localStorage.setItem('XSMainpage_p2ball', md5(s))
+function getPosition(ev) {
+	//页面可见大小
+	var clientWidth = window.innerWidth;
+	var clienHeight = window.innerHeight;
+	ev = ev || window.event;
+	return (Math.trunc(ev.clientX * 3 / clientWidth + 1) + (Math.trunc(ev.clientY * 3 / clienHeight) * 3)).toString();
 }
+var password_play = "";
+window.onload = function() {
+	document.body.onclick = function(ev) {
+		
+		/**  修改区  **/
+		var passlen = 15; // To be modified.
+		var right_res = "6f19940a612bd86e05d50409ae976551"; // To be modified.
+		/**         **/
+		
+		password_play += getPosition(ev);
+		var md5_res = md5(password_play.substring(password_play.length - passlen));
+		for(var i = 1 ; i <= 20 ; i++) {
+			md5_res = md5(md5_res);
+		}
+		console.log("md5_res=" + md5_res);
+		if (md5_res === right_res) {
+			// do something
+			
+			;document.body.onclick = null;
+		} else {
+			// do something
+		}
+	}
+};
+/**
+ * 温馨提醒：请在获取班主任允许后复制本班代码！
+ * 代码的复制和使用与本班(D2401)无关！
+ */
+// phasor: /WEB_Files/uploadfile/fujian/202203/20220305201254820.hlp

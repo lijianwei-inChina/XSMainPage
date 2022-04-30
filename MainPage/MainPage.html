@@ -274,31 +274,34 @@
 			<div class="c-info">
 				本轮：
 				<span v-if="index%2 !== 0">
-					<div class="black"></div>黑
+					<div class="black"></div>
+					黑
 				</span>
 				<span v-if="index%2 === 0">
-					<div class="white"></div>白
+					<div class="white"></div>
+					白
 				</span>
-
 				<span class="blackNum">黑棋：{{blackNum}}</span>
 				<span class="whiteNum">白棋：{{whiteNum}}</span>
-
 				<button @click="restart">重新开始</button>
 			</div>
 			<table border="1">
-				<tr v-for="(items,row) in chessboardShow">
-					<td v-for="(item,col) in items" :class="{'canplay': item === 2}" :rowIndex="row" :colIndex="col"
-						@click="playing(row,col)">
-						<div class="chessman" :class="{'white': item === 1, 'black': item === -1}"></div>
-					</td>
-				</tr>
+				<tbody>
+					<tr v-for="(items,row) in chessboardShow">
+						<td v-for="(item,col) in items" :class="{'canplay': item === 2}" :rowindex="row" :colindex="col"
+							@click="playing(row,col)">
+							<div class="chessman" :class="{'white': item === 1, 'black': item === -1}"></div>
+						</td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>
 	<!-- END Part-5: 载入黑白棋 -->
 	<!-- Last-Part: 载入各种JavaScript -->
 	<div id="loadJS">
-		<script src="/WEB_Files/uploadfile/fujian/202203/20220312133926260.hlp" type="text/javascript" charset="utf-8"></script>
+		<!-- JQuery -->
+		<script src="/js/jquery-3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 同学的生日 -->
 		<script type="text/javascript">
 			$(function() {
@@ -377,13 +380,14 @@
 			$(function() {
 				let D2401_BWC_is_OK = function() {
 					if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-						$("div").filter("#othello").html("<p style='font-size: 32px;'>GOOD GOOD STUDY, DAY DAY UP!</p>")
+						$("div").filter("#othello").html(
+							"<p style='font-size: 32px;'>GOOD GOOD STUDY, DAY DAY UP!</p>")
 						return false;
 					} else {
 						if ($("#content_article").length > 0) {
 							// 班级主页的页面视图
 							let ip_info = $("#content_article").contents();
-							if (ip_info.eq(ip_info.length - 1).text().indexOf("IP:xxx") > -1) {
+							if (ip_info.eq(ip_info.length - 1).text().indexOf("IP:7.198") > -1) {
 								return true;
 							}
 							$("div").filter("#othello").html(
@@ -774,7 +778,6 @@
 				}
 			});
 		</script>
-
 	</div>
 	<!-- END Last-Part: 载入各种JavaScript END -->
 	<span class="normal-text-br"><br>

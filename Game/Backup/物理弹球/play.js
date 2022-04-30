@@ -1,4 +1,4 @@
-var GameState = function(game){
+var GameState = function(game) {
 	var _over = false;
 	var _holding = false;
 	var _going = false;
@@ -9,10 +9,10 @@ var GameState = function(game){
 	var _score;
 	var _level;
 
-	var balls,shapes,line,tweenText;
-	var ballMaterial,worldMaterial;
+	var balls, shapes, line, tweenText;
+	var ballMaterial, worldMaterial;
 
-	this.init = function(){
+	this.init = function() {
 		game.stage.backgroundColor = "#112233";
 		_over = false;
 		_holding = false;
@@ -25,207 +25,248 @@ var GameState = function(game){
 		_level = 0;
 	};
 
-	this.preload = function(){
-		if(!game.device.desktop){
+	this.preload = function() {
+		if (!game.device.desktop) {
 			this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-		}else{
+		} else {
 			this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 		}
 		this.load.image("ground", "/WEB_Files/uploadfile/202203/20220305201408972005.png");
-		this.load.spritesheet("ball", "/WEB_Files/uploadfile/202203/20220305201403681001.png",32,32);
-		this.load.spritesheet("ball2", "/WEB_Files/uploadfile/202203/20220305201403185002.png",48,48);
-		this.load.spritesheet("button", "/WEB_Files/uploadfile/202203/20220305201407546003.png",80,40);
+		this.load.spritesheet("ball", "/WEB_Files/uploadfile/202203/20220305201403681001.png", 32, 32);
+		this.load.spritesheet("ball2", "/WEB_Files/uploadfile/202203/20220305201403185002.png", 48, 48);
+		this.load.spritesheet("button", "/WEB_Files/uploadfile/202203/20220305201407546003.png", 80, 40);
 		this.load.image("dot", "/WEB_Files/uploadfile/202203/20220305201407370004.png");
 	};
 
-	this.create = function(){
-		game.physics.startSystem(Phaser.Physics.P2JS); 
+	this.create = function() {
+		game.physics.startSystem(Phaser.Physics.P2JS);
 		game.physics.p2.gravity.y = 1000;
 
 		ballMaterial = game.physics.p2.createMaterial('ballMaterial');
 		worldMaterial = game.physics.p2.createMaterial('worldMaterial');
-		game.physics.p2.createContactMaterial(ballMaterial, worldMaterial, { restitution:0.98, friction:0 });
-		game.physics.p2.createContactMaterial(ballMaterial, ballMaterial,{ restitution:0, friction:0, stiffness:0.00001 });
+		game.physics.p2.createContactMaterial(ballMaterial, worldMaterial, {
+			restitution: 0.98,
+			friction: 0
+		});
+		game.physics.p2.createContactMaterial(ballMaterial, ballMaterial, {
+			restitution: 0,
+			friction: 0,
+			stiffness: 0.00001
+		});
 		game.physics.p2.setWorldMaterial(worldMaterial);
 
-		game.add.tileSprite(0, 0, game.width, 60, "ground").alpha=0.5;
+		game.add.tileSprite(0, 0, game.width, 60, "ground").alpha = 0.5;
 
 		var home = game.add.sprite(game.world.centerX, 30, "ball", 3);
 		home.anchor.setTo(0.5);
 		home.scale.setTo(1.2);
-		home.update = function(){this.alpha = (!_over && !_going) ? 1 : 0.5;};
+		home.update = function() {
+			this.alpha = (!_over && !_going) ? 1 : 0.5;
+		};
 
-		var scoreText = game.add.text(10, 30, _score + "", {fontSize:"20px", fill:"#fff"});
+		var scoreText = game.add.text(10, 30, _score + "", {
+			fontSize: "20px",
+			fill: "#fff"
+		});
 		scoreText.anchor.setTo(0, 0.5);
-		scoreText.update = function(){this.text = _score;};
+		scoreText.update = function() {
+			this.text = _score;
+		};
 
-		var levelText = game.add.text(game.width-10, 30, _ballNum + "", {fontSize:"20px", fill:"#fff"});
+		var levelText = game.add.text(game.width - 10, 30, _ballNum + "", {
+			fontSize: "20px",
+			fill: "#fff"
+		});
 		levelText.anchor.setTo(1, 0.5);
-		levelText.update = function(){this.text = _ballNum;};
+		levelText.update = function() {
+			this.text = _ballNum;
+		};
 
 		shapes = game.add.physicsGroup(Phaser.Physics.P2JS);
 		balls = game.add.physicsGroup(Phaser.Physics.P2JS);
 
 		// Ground
-		var ground = game.add.tileSprite(game.world.centerX, game.height-30, game.width, 60, "ground");
-		game.physics.p2.enable(ground);  
+		var ground = game.add.tileSprite(game.world.centerX, game.height - 30, game.width, 60, "ground");
+		game.physics.p2.enable(ground);
 		ground.body.static = true;
-		ground.body.onBeginContact.add(function(b1,b2){
-			if(b1 && b1.sprite.key == "ball"){
+		ground.body.onBeginContact.add(function(b1, b2) {
+			if (b1 && b1.sprite.key == "ball") {
 				b1.sprite.kill();
 				_ballKill++;
-				if(_ballKill==_ballNum){
+				if (_ballKill == _ballNum) {
 					this._shapesUp();
 				}
 			}
-		},this);
+		}, this);
 
-		tweenText = game.add.text(0,0,"",{fontSize:"36px", fill:"#fff"});
+		tweenText = game.add.text(0, 0, "", {
+			fontSize: "36px",
+			fill: "#fff"
+		});
 		tweenText.anchor.setTo(0.5);
 		tweenText.alpha = 0;
 
 		line = game.add.tileSprite(game.world.centerX, 30, game.world.centerX, 16, "dot");
-		line.anchor.setTo(0,0.5);
+		line.anchor.setTo(0, 0.5);
 		line.visible = false;
 
 		// Create shapes
-		for (var i=2; i<5; i++){
+		for (var i = 2; i < 5; i++) {
 			this._createShapes(i);
 		}
 
-		game.input.onDown.add(function(p){
-			if(!_over && !_going && !_holding){
+		game.input.onDown.add(function(p) {
+			if (!_over && !_going && !_holding) {
 				_holding = true;
 				_pointID = p.id;
 				line.rotation = Math.atan2(p.y - 20, p.x - 225);
 				line.visible = true;
 			}
-		},this);
+		}, this);
 
-		game.input.onUp.add(function(p){
-			if(_holding && p.id == _pointID){
+		game.input.onUp.add(function(p) {
+			if (_holding && p.id == _pointID) {
 				_holding = false;
 				_pointID = -1;
 				_going = true;
 				line.visible = false;
 				// Create Balls
-				var vPoint = this._velocityFromRotation(line.rotation,800);
-				for(var i=0; i<_ballNum; i++){
-					game.time.events.add(200*i,function(id,p){
-						if(id<balls.children.length){
+				var vPoint = this._velocityFromRotation(line.rotation, 800);
+				for (var i = 0; i < _ballNum; i++) {
+					game.time.events.add(200 * i, function(id, p) {
+						if (id < balls.children.length) {
 							var ball = balls.getChildAt(id);
 							ball.reset(game.world.centerX, 30);
-						}else{
+						} else {
 							var ball = balls.create(game.world.centerX, 30, "ball", 0);
 							ball.anchor.set(0.5);
 							ball.scale.set(0.7);
 							ball.body.setCircle(12);
 							ball.body.setMaterial(ballMaterial);
-							ball.body.onBeginContact.add(function(b1,b2){
-								if(this.body.data.gravityScale == 0){
-									if(b1 && b1.sprite.key == "ball"){
+							ball.body.onBeginContact.add(function(b1, b2) {
+								if (this.body.data.gravityScale == 0) {
+									if (b1 && b1.sprite.key == "ball") {
 										return;
 									}
 									this.body.data.gravityScale = 1;
 								}
-							},ball);
+							}, ball);
 						}
 						ball.body.data.gravityScale = 0;
 						ball.body.velocity.x = p.x;
 						ball.body.velocity.y = p.y;
-					},this,i,vPoint);
+					}, this, i, vPoint);
 				}
 				_ballKill = 0;
 			}
-		},this);
+		}, this);
 	};
 
-	this.update = function(){
-		if(!_going && _holding){
-			var p = _pointID==0 ? game.input.mousePointer : game.input.pointers[_pointID-1];
+	this.update = function() {
+		if (!_going && _holding) {
+			var p = _pointID == 0 ? game.input.mousePointer : game.input.pointers[_pointID - 1];
 			line.rotation = Math.atan2(p.y - 20, p.x - 225);
 		}
 	};
 
-	this._shapesUp = function(){
+	this._shapesUp = function() {
 		this._createShapes(5);
-		shapes.forEachAlive(function(shape){
+		shapes.forEachAlive(function(shape) {
 			var topY = shape.body.y - 90;
-			if(topY<60 && !_over){
+			if (topY < 60 && !_over) {
 				_over = true;
 				this._overMenu();
 			}
-			game.add.tween(shape.body).to({y:topY},200,"Linear",true);
-		},this);
+			game.add.tween(shape.body).to({
+				y: topY
+			}, 200, "Linear", true);
+		}, this);
 		_going = false;
 	};
 
-	this._createShapes = function(i){
-		if(_xrow==0){
+	this._createShapes = function(i) {
+		if (_xrow == 0) {
 			this._levelUp();
 		}
 		var col = 5 - (_xrow % 2);
-		for (var j=0; j<col; j++){
-			var shapeID = game.rnd.between(1,3);
-			var angle = game.rnd.between(0,11)*30;
-			var shape = shapes.getFirstDead(true, 65 + j * 90 + 45 * (_xrow % 2), 300 + i * 90, "ball2", shapeID);
+		for (var j = 0; j < col; j++) {
+			var shapeID = game.rnd.between(1, 3);
+			var angle = game.rnd.between(0, 11) * 30;
+			var shape = shapes.getFirstDead(true, 65 + j * 90 + 45 * (_xrow % 2), 300 + i * 90, "ball2",
+				shapeID);
 			shape.anchor.set(0.5);
-			if(shapeID==1){
-				shape.body.setRectangle(44,44,0,0);
-			}else if(shapeID==3){
-				shape.body.addPolygon(null,[23,0,0,39,1,40,46,40,47,39,24,0]);
-			}else{
+			if (shapeID == 1) {
+				shape.body.setRectangle(44, 44, 0, 0);
+			} else if (shapeID == 3) {
+				shape.body.addPolygon(null, [23, 0, 0, 39, 1, 40, 46, 40, 47, 39, 24, 0]);
+			} else {
 				shape.body.setCircle(22);
 			}
 			shape.body.static = true;
 			shape.body.setMaterial(worldMaterial);
 			shape.health = game.rnd.between(_ballNum, _ballNum * 4); // 生命值为球数量的1~4倍
-			if(!shape.txt){
-				shape.txt = shape.addChild(game.make.text(0,0,shape.health+"",{fontSize:"20px", fill:"#f00"}));
+			if (!shape.txt) {
+				shape.txt = shape.addChild(game.make.text(0, 0, shape.health + "", {
+					fontSize: "20px",
+					fill: "#f00"
+				}));
 				shape.txt.anchor.set(0.5);
-				shape.update = function(){this.txt.text = this.health;};
-				shape.body.onEndContact.add(function(b1,b2){
+				shape.update = function() {
+					this.txt.text = this.health;
+				};
+				shape.body.onEndContact.add(function(b1, b2) {
 					this.damage(1);
 					_score++;
-				},shape);
+				}, shape);
 			}
 			shape.body.angle = angle;
 			shape.txt.angle = -angle;
 		}
-		_xrow = (_xrow+1) % 10; // 每10行过关
+		_xrow = (_xrow + 1) % 10; // 每10行过关
 	};
 
-	this._velocityFromRotation = function (rotation, speed) {
+	this._velocityFromRotation = function(rotation, speed) {
 		return new Phaser.Point((Math.cos(rotation) * speed), (Math.sin(rotation) * speed));
 	};
 
-	this._levelUp = function(){
-		_level ++;
+	this._levelUp = function() {
+		_level++;
 		_ballNum = _level + 2; // 球数量为关数+2（第一关为3球，每过一关+1球）
 		tweenText.x = this.world.centerX;
 		tweenText.y = this.world.centerY;
 		tweenText.alpha = 0;
 		tweenText.setText("LEVEL - " + _level);
 		game.add.tween(tweenText)
-		.to({y:tweenText.y-100,alpha:0.8},300,"Linear",false)
-		.to({y:tweenText.y-150},500,"Linear",false)
-		.to({y:tweenText.y-250,alpha:0},300,"Linear",true);
+			.to({
+				y: tweenText.y - 100,
+				alpha: 0.8
+			}, 300, "Linear", false)
+			.to({
+				y: tweenText.y - 150
+			}, 500, "Linear", false)
+			.to({
+				y: tweenText.y - 250,
+				alpha: 0
+			}, 300, "Linear", true);
 	};
 
-	this._overMenu = function(){
+	this._overMenu = function() {
 		var box = game.add.sprite(game.world.centerX, game.world.centerY, "button", 3);
 		box.anchor.set(0.5);
 		box.alpha = 0.8;
-		box.scale.set(game.width/80,5);
+		box.scale.set(game.width / 80, 5);
 
-		game.add.text(game.world.centerX, game.world.centerY-40, "Game Over", {fontSize:"36px", fill:"#fff"}).anchor.set(0.5);
+		game.add.text(game.world.centerX, game.world.centerY - 40, "Game Over", {
+			fontSize: "36px",
+			fill: "#fff"
+		}).anchor.set(0.5);
 
-		var btn1 = game.add.sprite(game.world.centerX, game.world.centerY+40, "button", 1);
+		var btn1 = game.add.sprite(game.world.centerX, game.world.centerY + 40, "button", 1);
 		btn1.anchor.set(0.5);
 		btn1.inputEnabled = true;
-		btn1.events.onInputDown.add(function(){
+		btn1.events.onInputDown.add(function() {
 			game.state.start("main");
-		},this);
+		}, this);
 	};
 };
 
@@ -453,18 +494,41 @@ var GameState = function(game){
 	}
 })(this)
 
-window.onload = function(){
-	var now = new Date(),
-		y = now.getFullYear(),
-		m = now.getMonth() + 1,
-		d = now.getDate();
-	var s = y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " D2401Permission";
-	if(localStorage.getItem('XSMainpage_p2ball') === md5(s)){
-		// $("div").filter("#main").remove();
-		var game = new Phaser.Game(500, 860, Phaser.CANVAS, '');
-		game.state.add("main",GameState,true);
-	} else {
-		// do nothing
+function getPosition(ev) {
+	//页面可见大小
+	var clientWidth = window.innerWidth;
+	var clienHeight = window.innerHeight;
+	ev = ev || window.event;
+	// console.log("cilent:(" + clientWidth + "," + clienHeight + ")");
+	// console.log("event:(" + ev.clientX + "," + ev.clientY + ")");
+	return (Math.trunc(ev.clientX * 3 / clientWidth + 1) + (Math.trunc(ev.clientY * 3 / clienHeight) * 3)).toString();
+}
+var password_play = "";
+window.onload = function() {
+	document.body.onclick = function(ev) {
+		
+		/**  修改区  **/
+		var passlen = 15; // To be modified.
+		var right_res = "6f19940a612bd86e05d50409ae976551"; // To be modified.
+		/**         **/
+		
+		password_play += getPosition(ev);
+		var md5_res = md5(password_play.substring(password_play.length - passlen));
+		for(var i = 1 ; i <= 20 ; i++) {
+			md5_res = md5(md5_res);
+		}
+		console.log("md5_res=" + md5_res);
+		if (md5_res === right_res) {
+			var game = new Phaser.Game(500, 860, Phaser.CANVAS, '');
+			game.state.add("main", GameState, true);
+			document.body.onclick = null;
+			console.log("checked.")
+		} else {
+			// do nothing
+		};
 	}
 };
-// /WEB_Files/uploadfile/fujian/202203/20220312134929884.hlp
+/**
+ * 温馨提醒：请在获取班主任允许后复制本班代码！
+ * 代码的复制和使用与本班(D2401)无关！
+ */
