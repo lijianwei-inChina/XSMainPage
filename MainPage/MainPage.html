@@ -86,6 +86,42 @@
 		background-color: rgba(255, 206, 244, 0.2);
 	}
 
+	.birthday-normal {
+		font-size: 28px;
+	}
+
+	.birthday-name-normal {
+		font-size: 40px;
+	}
+
+	.birthday-small {
+		font-size: 16px;
+	}
+
+	.birthday-name-small {
+		font-size: 28px;
+	}
+
+	.countdown {
+		font-family: Comic Sans MS;
+	}
+
+	.countdown-head-normal {
+		font-size: 35px;
+	}
+
+	.countdown-head-small {
+		font-size: 20px;
+	}
+
+	.countdown-time-normal {
+		font-size: 60px;
+	}
+
+	.countdown-time-small {
+		font-size: 40px;
+	}
+
 	/* 黑白棋 */
 	.c-info {
 		width: 640px;
@@ -210,20 +246,13 @@
 		<div id="developer-words" class="Words">
 			<p class="psg-style"><span class="normal-text">
 					1.
-					组织班队课的同学，请派一位代表将班队课相关图片、文字资料排版成Word(HTML或者Markdown也行)，或者将相关图片资源（压缩包）和文案（Word或者QQ直接打字）发给李坚蔚(email:tel13958391458@qq.com，qq1603903561；请写明班队课主题和班队课的时间)。大概长啥样可以去看看班级主页里面班队活动板块的《班队课-学习计划的制定和实施》（忽略那个网页中一些重复的图片）。
-				</span></p>
-			<p class="psg-style"><span class="normal-text">
-					2.
 					如果有想要把一些文章、图片、视频放到网站上的，可以来找李坚蔚(当面聊或者email:tel13958391458@qq.com或者qq1603903561)，说明来意并且将要放上去的东西给李坚蔚。
 				</span></p>
 			<p class="psg-style"><span class="normal-text">
-					3. 其他班级需要我们班级主页的某些元素或者样式的，欢迎自行查看源代码，复制粘贴到自己的主页。
+					2. 其他班级需要我们班级主页的某些元素或者样式的，欢迎自行查看源代码，复制粘贴到自己的主页。
 				</span></p>
 			<p class="psg-style"><span class="normal-text">
-					4. 如涉及侵权等问题，请指出！将会立刻删除违规内容。
-				</span></p>
-			<p class="psg-style"><span class="normal-text">
-					5. 介于现在处于新政策期，若有班级主页不当之处请联系我们班！
+					3. 如涉及侵权等问题，请指出！将会立刻删除违规内容。
 				</span></p>
 		</div>
 	</div>
@@ -237,10 +266,10 @@
 	</div>
 	<!-- Part-3: 同学的生日 -->
 	<div id="birthday-div" class="psg-div-border" align="center">
-		<p id="birthday-title" class="psg-style" style="font-size: 28px;"><b>今天班级生日情况：</b></p>
+		<p id="birthday-title" class="psg-style"><span class="birthday-normal"><b>今天班级生日情况：</b></span></p>
 		<span class="normal-text-br"><br>
 		</span>
-		<p id="birthday-p" class="psg-style" style="font-size: 40px;">正在载入同学们的生日...</p>
+		<p class="psg-style"><span id="birthday-p" class="birthday-name-normal">正在载入同学们的生日...</span></p>
 	</div>
 	<!-- END Part-3: 同学的生日 END -->
 	<div class="split-div">
@@ -250,15 +279,20 @@
 		<span class="normal-text-br"><br>
 		</span>
 	</div>
-	<!-- Part-4: 高考倒计时(PS.在这个div中的语义化标签并没有做的很妥帖) -->
-	<div id="gkdjs" class="psg-div-border" align="center">
-		<p id="h" style="font-size: 36px; font-family: &quot;Comic Sans MS&quot;">众所周知 提前卷起来非常提神醒脑(bushi)<span
-				class="normal-text-br"><br>
-			</span>
-			所以距离2024.6.7高考还有</p>
-		<p id="day" style="font-size: 56px; font-family: &quot;Comic Sans MS&quot;">正在计算中...<span class="time">天</span>
+	<!-- Part-4: 高考倒计时 -->
+	<div id="countdown-div" class="psg-div-border" align="center">
+		<p id="countdown-head" class="countdown">
+			<span class="countdown-head-normal">众所周知 提前卷起来非常提神醒脑(bushi)</span>
+			<span class="normal-text-br"><br></span>
+			<span class="countdown-head-normal">所以距离2024.6.7高考还有</span>
 		</p>
-		<p id="p" style="font-size: 42px; font-family: &quot;Comic Sans MS&quot;"></p>
+		<p class="countdown">
+			<span id="countdown-day" class="countdown-time-normal">正在计算中...</span><span class="countdown-time-normal">天</span>
+			<span class="normal-text-br"><br></span>
+			<span id="countdown-time-h" class="countdown-time-normal"></span><span class="countdown-time-normal">时</span>
+			<span id="countdown-time-m" class="countdown-time-normal"></span><span class="countdown-time-normal">分</span>
+			<span id="countdown-time-s" class="countdown-time-normal"></span><span class="countdown-time-normal">秒</span>
+		</p>
 	</div>
 	<!-- END Part-4: 高考倒计时 END -->
 	<div class="split-div">
@@ -324,23 +358,22 @@
 					else dt = dt + "0" + new Date().getDate();
 					if (birthdays[i] == dt) {
 						results = results + names[i] + ",";
-						flag = true
+						flag = true;
 					}
 				}
 				if (flag) {
-					results = results.substring(0, results.length - 1) + " " + "今天生日！"
+					results = results.substring(0, results.length - 1) + " " + "今天生日！";
 				} else {
-					results = "今天没人生日"
+					results = "今天没人生日";
 				}
-				document.getElementById("birthday-p").innerHTML = results;
+				document.getElementById("birthday-p").innerHTML = (results);
 			});
 		</script>
 		<!-- 高考倒计时 -->
 		<script type="text/javascript">
-			var oSpan = document.getElementById("p");
 
 			function tow(n) {
-				return n >= 0 && n < 10 ? '0' + n : '' + n;
+				return (n >= 0 && n < 10) ? '0' + n : '' + n;
 			}
 
 			function getDate() {
@@ -355,10 +388,10 @@
 				second %= 3600;
 				var minute = Math.floor(second / 60);
 				second %= 60;
-				document.getElementById("day").innerHTML = tow(day) + '<span class="time">天</span>';
-				var str = tow(hour) + '<span class="time">小时</span>' + tow(minute) + '<span class="time">分钟</span>' + tow(
-					second) + '<span class="time">秒</span>';
-				oSpan.innerHTML = str;
+				document.getElementById("countdown-day").innerHTML = day;
+				document.getElementById("countdown-time-h").innerHTML = tow(hour);
+				document.getElementById("countdown-time-m").innerHTML = tow(minute);
+				document.getElementById("countdown-time-s").innerHTML = tow(second);
 			}
 			$(function() {
 				getDate();
@@ -381,7 +414,7 @@
 				let D2401_BWC_is_OK = function() {
 					if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
 						$("div").filter("#othello").html(
-							"<p style='font-size: 32px;'>GOOD GOOD STUDY, DAY DAY UP!</p>")
+							"<p style='font-size: 18px;'>GOOD GOOD STUDY, DAY DAY UP!</p>")
 						return false;
 					} else {
 						if ($("#content_article").length > 0) {
@@ -747,12 +780,13 @@
 
 					// 手机页面视图
 					$("span").filter(".normal-title").addClass("small-title").removeClass("normal-title"); // 页面div的标题
-					$("span").filter(".normal-spirit-size").addClass("small-spirit-size").removeClass(
-						"normal-spirit-size"); // 班旗班徽标题
-					$("span").filter(".normal-text").addClass("small-text").removeClass("normal-text"); // text自适应
-					$("span").filter(".normal-text-br").addClass("small-text-br").removeClass(
-						"normal-text-br"); // br自适应
-
+					$("span").filter(".normal-spirit-size").addClass("small-spirit-size").removeClass("normal-spirit-size"); // 班旗班徽副标题
+					$("span").filter(".normal-text").addClass("small-text").removeClass("normal-text"); // 文字自适应
+					$("span").filter(".birthday-normal").addClass("birthday-small").removeClass("birthday-normal"); // 生日自适应-1
+					$("span").filter(".birthday-name-normal").addClass("birthday-name-small").removeClass("birthday-name-normal"); // 生日自适应-2
+					$("span").filter(".countdown-head-normal").addClass("countdown-head-small").removeClass("countdown-head-normal"); // 高考倒计时自适应-1
+					$("span").filter(".countdown-time-normal").addClass("countdown-time-small").removeClass("countdown-time-normal"); // 高考倒计时自适应-2
+					$("span").filter(".normal-text-br").addClass("small-text-br").removeClass("normal-text-br"); // br自适应
 				} else {
 					if ($("#content_article").length > 0) {
 
