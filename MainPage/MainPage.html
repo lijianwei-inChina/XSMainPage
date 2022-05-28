@@ -267,8 +267,7 @@
 	<!-- Part-3: 同学的生日 -->
 	<div id="birthday-div" class="psg-div-border" align="center">
 		<p id="birthday-title" class="psg-style"><span class="birthday-normal"><b>今天班级生日情况：</b></span></p>
-		<span class="normal-text-br"><br>
-		</span>
+		<span class="normal-text-br"><br></span>
 		<p class="psg-style"><span id="birthday-p" class="birthday-name-normal">正在载入同学们的生日...</span></p>
 	</div>
 	<!-- END Part-3: 同学的生日 END -->
@@ -287,11 +286,15 @@
 			<span class="countdown-head-normal">所以距离2024.6.7高考还有</span>
 		</p>
 		<p class="countdown">
-			<span id="countdown-day" class="countdown-time-normal">正在计算中...</span><span class="countdown-time-normal">天</span>
+			<span id="countdown-day" class="countdown-time-normal">正在计算中...</span>
+			<span class="countdown-time-normal">天</span>
 			<span class="normal-text-br"><br></span>
-			<span id="countdown-time-h" class="countdown-time-normal"></span><span class="countdown-time-normal">时</span>
-			<span id="countdown-time-m" class="countdown-time-normal"></span><span class="countdown-time-normal">分</span>
-			<span id="countdown-time-s" class="countdown-time-normal"></span><span class="countdown-time-normal">秒</span>
+			<span id="countdown-time-h" class="countdown-time-normal"></span>
+			<span class="countdown-time-normal">时</span>
+			<span id="countdown-time-m" class="countdown-time-normal"></span>
+			<span class="countdown-time-normal">分</span>
+			<span id="countdown-time-s" class="countdown-time-normal"></span>
+			<span class="countdown-time-normal">秒</span>
 		</p>
 	</div>
 	<!-- END Part-4: 高考倒计时 END -->
@@ -335,7 +338,7 @@
 	<!-- Last-Part: 载入各种JavaScript -->
 	<div id="loadJS">
 		<!-- JQuery -->
-		<script src="/js/jquery-3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- <script src="/js/jquery-3.5.1.min.js" type="text/javascript" charset="utf-8"></script>  -->
 		<!-- 同学的生日 -->
 		<script type="text/javascript">
 			$(function() {
@@ -371,7 +374,6 @@
 		</script>
 		<!-- 高考倒计时 -->
 		<script type="text/javascript">
-
 			function tow(n) {
 				return (n >= 0 && n < 10) ? '0' + n : '' + n;
 			}
@@ -780,12 +782,17 @@
 
 					// 手机页面视图
 					$("span").filter(".normal-title").addClass("small-title").removeClass("normal-title"); // 页面div的标题
-					$("span").filter(".normal-spirit-size").addClass("small-spirit-size").removeClass("normal-spirit-size"); // 班旗班徽副标题
+					$("span").filter(".normal-spirit-size").addClass("small-spirit-size").removeClass(
+						"normal-spirit-size"); // 班旗班徽副标题
 					$("span").filter(".normal-text").addClass("small-text").removeClass("normal-text"); // 文字自适应
-					$("span").filter(".birthday-normal").addClass("birthday-small").removeClass("birthday-normal"); // 生日自适应-1
-					$("span").filter(".birthday-name-normal").addClass("birthday-name-small").removeClass("birthday-name-normal"); // 生日自适应-2
-					$("span").filter(".countdown-head-normal").addClass("countdown-head-small").removeClass("countdown-head-normal"); // 高考倒计时自适应-1
-					$("span").filter(".countdown-time-normal").addClass("countdown-time-small").removeClass("countdown-time-normal"); // 高考倒计时自适应-2
+					$("span").filter(".birthday-normal").addClass("birthday-small").removeClass(
+					"birthday-normal"); // 生日自适应-1
+					$("span").filter(".birthday-name-normal").addClass("birthday-name-small").removeClass(
+						"birthday-name-normal"); // 生日自适应-2
+					$("span").filter(".countdown-head-normal").addClass("countdown-head-small").removeClass(
+						"countdown-head-normal"); // 高考倒计时自适应-1
+					$("span").filter(".countdown-time-normal").addClass("countdown-time-small").removeClass(
+						"countdown-time-normal"); // 高考倒计时自适应-2
 					$("span").filter(".normal-text-br").addClass("small-text-br").removeClass("normal-text-br"); // br自适应
 				} else {
 					if ($("#content_article").length > 0) {
